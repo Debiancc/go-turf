@@ -11,10 +11,10 @@ import (
 	"github.com/Debiancc/go-turf"
 )
 func main() {
-    form := point.NewPoint([2]float64{-75.343, 39.984}, nil, nil)
+    from := point.NewPoint([2]float64{-75.343, 39.984}, nil, nil)
     to := point.NewPoint([2]float64{-75.534, 39.123}, nil, nil)
 
-    distance := point.Distance(form, to, types.UnitDegrees)
+    distance := point.Distance(from, to, types.UnitDegrees)
     // 0.8724834600465156
 }
 ```
