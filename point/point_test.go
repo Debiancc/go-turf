@@ -7,7 +7,7 @@ func TestNewPoint(t *testing.T) {
 	assert := assert.New(t)
 	p := NewPoint(
 		[2]float64{-75.343, 39.984},
-		&map[string]interface{}{"city": "ShangHai", "osm_id": 123},
+		&Properties{"city": "ShangHai", "osm_id": 123},
 		nil,
 	)
 	assert.Equal(p.Lng, -75.343, "New point lng are incorrect")

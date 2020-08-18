@@ -1,13 +1,14 @@
 package point
 
 type Coord [2]float64
+type Properties map[string]interface{}
 
 type Point struct {
-	Coord      Coord
-	Lng        float64
-	Lat        float64
-	Properties map[string]interface{}
-	Options    Options
+	Coord Coord
+	Lng   float64
+	Lat   float64
+	Properties
+	Options Options
 }
 
 type Options struct {
@@ -15,7 +16,7 @@ type Options struct {
 	Id   interface{} // int64 or string
 }
 
-func NewPoint(coordinates Coord, properties *map[string]interface{}, options *Options) Point {
+func NewPoint(coordinates Coord, properties *Properties, options *Options) Point {
 	p := Point{
 		Lng:   coordinates[0],
 		Lat:   coordinates[1],

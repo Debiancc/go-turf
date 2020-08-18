@@ -15,6 +15,23 @@ func RadiansToDegrees(r float64) float64 {
 	return degrees * 180 / math.Pi
 }
 
+func LengthToRadians(distance float64, units types.Units) float64 {
+	switch units {
+	case types.UnitDegrees:
+		return distance / types.FactorDegrees
+	case types.UnitKilometers:
+		return distance / types.FactorKilometers
+	case types.UnitMiles:
+		return distance / types.FactorMiles
+	case types.UnitNauticalmiles:
+		return distance / types.FactorNauticalmiles
+	case types.UnitRadians:
+		return distance / types.FactorRadians
+	default:
+		return 0
+	}
+}
+
 func RadiansToLength(radians float64, units types.Units) float64 {
 	switch units {
 	case types.UnitDegrees:
