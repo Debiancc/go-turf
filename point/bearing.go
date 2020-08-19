@@ -23,3 +23,36 @@ func calcFinal(start Point, end Point) float64 {
 	bear := Bearing(end, start, false)
 	return math.Mod(bear+180, 360)
 }
+
+func RhumbBearing(start Point, end Point, final bool) float64 {
+	var bear360 float64
+	if final {
+		bear360 = calcRhumbBearing(end, start)
+	} else {
+		bear360 = calcRhumbBearing(start, end)
+	}
+
+	bear180 := bear360
+	if bear360 > 180 {
+		bear180 = -(360 - bear360)
+	}
+
+	return bear180
+}
+
+func calcRhumbBearing(start Point, end Point) float64 {
+	phi1 := helper.DegreesToRadians(start.Lat)
+	phi2 := helper.DegreesToRadians(end.Lat)
+	deltaLambda := helper.DegreesToRadians(end.Lng - start.Lng)
+	if deltaLambda > math.Pi {
+		deltaLambda -= 2 * math.Pi
+	}
+	if deltaLambda < -math.Pi {
+		deltaLambda += 2 * math.Pi
+	}
+
+	deltaPsi := math.Log(math.Tan(phi2/2+math.Pi/4) / math.Tan(phi1/2+math.Pi/4))
+	theta := math.Atan2(deltaLambda, deltaPsi)
+
+	return math.Mod(helper.RadiansToDegrees(theta)+360, 360)
+}
