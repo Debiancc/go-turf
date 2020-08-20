@@ -8,8 +8,10 @@ turfjs lib implement by Golang.
 
 ```golang
 import (
-	"github.com/Debiancc/go-turf"
+	"github.com/Debiancc/go-turf/point"
+	"github.com/Debiancc/go-turf/types"
 )
+
 func main() {
     from := point.NewPoint([2]float64{-75.343, 39.984}, nil, nil)
     to := point.NewPoint([2]float64{-75.534, 39.123}, nil, nil)
@@ -18,3 +20,13 @@ func main() {
     // 0.8724834600465156
 }
 ```
+
+### Completion
+- MEASUREMENT **WIP**
+- UNIT CONVERSION **WIP**
+- COORDINATE MUTATION **TODO**
+- TRANSFORMATION **TODO**
+- FEATURE CONVERSION **TODO**
+- MISC **TODO**
+- ...
+ 
