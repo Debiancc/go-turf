@@ -1,15 +1,13 @@
-package point
+package features
 
-import "github.com/Debiancc/go-turf/features"
-
-type Geometry struct {
-	features.Geometry
-	Coordinates features.Position
+type PointGeometry struct {
+	Geometry
+	Coordinates Position
 }
 
 type Point struct {
-	features.Feature
-	Geometry Geometry
+	Feature
+	Geometry PointGeometry
 }
 
 type Options struct {
@@ -17,7 +15,7 @@ type Options struct {
 	Id   interface{} // int64 or string
 }
 
-func NewPoint(coordinates features.Position, properties *features.Properties, options *Options) *Point {
+func NewPoint(coordinates Position, properties *Properties, options *Options) *Point {
 	p := new(Point)
 	p.Type = "Feature"
 	p.Geometry.Type = "Point"
@@ -28,7 +26,7 @@ func NewPoint(coordinates features.Position, properties *features.Properties, op
 	return p
 }
 
-func (p *Point) GetCoord() features.Position {
+func (p *Point) GetCoord() Position {
 	return p.Geometry.Coordinates
 }
 

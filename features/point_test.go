@@ -1,7 +1,6 @@
-package point
+package features
 
 import (
-	"github.com/Debiancc/go-turf/features"
 	"testing"
 )
 import "github.com/stretchr/testify/assert"
@@ -10,7 +9,7 @@ func TestNewPoint(t *testing.T) {
 	assert := assert.New(t)
 	p := NewPoint(
 		[2]float64{-75.343, 39.984},
-		&features.Properties{"city": "ShangHai", "osm_id": 123},
+		&Properties{"city": "ShangHai", "osm_id": 123},
 		nil,
 	)
 	lng := p.GetLng()
