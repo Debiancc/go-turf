@@ -5,6 +5,7 @@ type Units string
 const UnitDegrees Units = "degrees"
 const UnitRadians Units = "radians"
 const UnitMiles Units = "miles"
+const UnitMeters Units = "meters"
 const UnitKilometers Units = "kilometers"
 const UnitNauticalmiles Units = "nauticalmiles"
 

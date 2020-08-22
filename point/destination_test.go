@@ -26,3 +26,12 @@ func TestDestination(t *testing.T) {
 	assert.Equal(p4.Lat, 26.440010707631124)
 
 }
+
+//func TestRhumbDestination(t *testing.T) {
+//	assert := assert.New(t)
+//
+//	// TODO fix
+//	p1 := RhumbDestination(NewPoint([2]float64{-179.5, -16.5}, nil, nil), 100, -90, types.UnitKilometers, nil)
+//	assert.Equal(p1.Lng, -180.437945)
+//	assert.Equal(p1.Lat, -16.5)
+//}

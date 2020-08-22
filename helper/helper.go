@@ -48,3 +48,10 @@ func RadiansToLength(radians float64, units types.Units) float64 {
 		return 0
 	}
 }
+
+func ConvertLength(length float64, originUnit types.Units, finalUnit types.Units) float64 {
+	if length >= 0 == false {
+		return 0
+	}
+	return RadiansToLength(LengthToRadians(length, originUnit), finalUnit)
+}
