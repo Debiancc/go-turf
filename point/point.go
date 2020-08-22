@@ -27,3 +27,15 @@ func NewPoint(coordinates features.Position, properties *features.Properties, op
 	}
 	return p
 }
+
+func (p *Point) GetCoord() features.Position {
+	return p.Geometry.Coordinates
+}
+
+func (p *Point) GetLng() float64 {
+	return p.Geometry.Coordinates[0]
+}
+
+func (p *Point) GetLat() float64 {
+	return p.Geometry.Coordinates[1]
+}

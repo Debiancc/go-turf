@@ -1,14 +1,15 @@
 package point
 
 import (
+	"github.com/Debiancc/go-turf/features"
 	"github.com/Debiancc/go-turf/helper"
 	"github.com/Debiancc/go-turf/types"
 	"math"
 )
 
-func Destination(origin Point, distance float64, bearing float64, units types.Units, properties *Properties) Point {
-	lng1 := helper.DegreesToRadians(origin.Lng)
-	lat1 := helper.DegreesToRadians(origin.Lat)
+func Destination(origin Point, distance float64, bearing float64, units types.Units, properties *features.Properties) *Point {
+	lng1 := helper.DegreesToRadians(origin.GetLng())
+	lat1 := helper.DegreesToRadians(origin.GetLat())
 	bearingRad := helper.DegreesToRadians(bearing)
 	radians := helper.LengthToRadians(distance, units)
 
@@ -23,25 +24,25 @@ func Destination(origin Point, distance float64, bearing float64, units types.Un
 	return NewPoint([2]float64{lng, lat}, properties, nil)
 }
 
-func RhumbDestination(origin Point, distance float64, bearing float64, units types.Units, properties *Properties) Point {
+func RhumbDestination(origin Point, distance float64, bearing float64, units types.Units, properties *features.Properties) *Point {
 	wasNegativeDostamce := distance < 0
 	distanceInMeters := helper.ConvertLength(math.Abs(distance), units, types.UnitMeters)
 	if wasNegativeDostamce {
 		distanceInMeters = -math.Abs(distanceInMeters)
 	}
 	destination := calcRhumbDestination(origin, distanceInMeters, bearing, nil)
-	if destination.Lng-origin.Lng > 180 {
-		destination.Lng += -360
+	if destination.GetLng()-origin.GetLng() > 180 {
+		destination.Geometry.Coordinates[0] += -360
 	} else {
-		if origin.Lng-destination.Lng > 180 {
-			destination.Lng += 360
+		if origin.GetLng()-destination.GetLng() > 180 {
+			destination.Geometry.Coordinates[0] += 360
 		}
 	}
 
-	return NewPoint([2]float64{destination.Lng, destination.Lat}, properties, nil)
+	return NewPoint(destination.Geometry.Coordinates, properties, nil)
 }
 
-func calcRhumbDestination(origin Point, distance float64, bearing float64, radius *float64) Point {
+func calcRhumbDestination(origin Point, distance float64, bearing float64, radius *float64) *Point {
 	var delta float64
 	if radius == nil {
 		delta = distance / types.FactorEarthRadius
@@ -49,8 +50,8 @@ func calcRhumbDestination(origin Point, distance float64, bearing float64, radiu
 		delta = distance / *radius
 	}
 
-	lambda1 := origin.Lng * math.Pi / 180
-	phi1 := helper.DegreesToRadians(origin.Lat)
+	lambda1 := origin.GetLng() * math.Pi / 180
+	phi1 := helper.DegreesToRadians(origin.GetLat())
 	theta := helper.DegreesToRadians(bearing)
 
 	deltaPhi := delta * math.Cos(theta)

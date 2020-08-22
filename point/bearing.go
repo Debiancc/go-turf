@@ -9,10 +9,10 @@ func Bearing(start Point, end Point, final bool) float64 {
 	if final {
 		return calcFinal(start, end)
 	}
-	lat1 := helper.DegreesToRadians(start.Lat)
-	lat2 := helper.DegreesToRadians(end.Lat)
-	lng1 := helper.DegreesToRadians(start.Lng)
-	lng2 := helper.DegreesToRadians(end.Lng)
+	lat1 := helper.DegreesToRadians(start.GetLat())
+	lat2 := helper.DegreesToRadians(end.GetLat())
+	lng1 := helper.DegreesToRadians(start.GetLng())
+	lng2 := helper.DegreesToRadians(end.GetLng())
 	a := math.Sin(lng2-lng1) * math.Cos(lat2)
 	b := math.Cos(lat1)*math.Sin(lat2) - math.Sin(lat1)*math.Cos(lat2)*math.Cos(lng2-lng1)
 
@@ -41,9 +41,9 @@ func RhumbBearing(start Point, end Point, final bool) float64 {
 }
 
 func calcRhumbBearing(start Point, end Point) float64 {
-	phi1 := helper.DegreesToRadians(start.Lat)
-	phi2 := helper.DegreesToRadians(end.Lat)
-	deltaLambda := helper.DegreesToRadians(end.Lng - start.Lng)
+	phi1 := helper.DegreesToRadians(start.GetLat())
+	phi2 := helper.DegreesToRadians(end.GetLat())
+	deltaLambda := helper.DegreesToRadians(end.GetLng() - start.GetLng())
 	if deltaLambda > math.Pi {
 		deltaLambda -= 2 * math.Pi
 	}
