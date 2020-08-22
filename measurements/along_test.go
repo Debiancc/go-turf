@@ -1,0 +1,37 @@
+package measurements
+
+import (
+	"github.com/Debiancc/go-turf/features"
+	"github.com/Debiancc/go-turf/types"
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
+
+func TestAlong(t *testing.T) {
+	assert := assert.New(t)
+	line := features.NewLineString([]features.Position{
+		[2]float64{-77.0316696166992, 38.878605901789236},
+		[2]float64{-77.02960968017578, 38.88194668656296},
+		[2]float64{-77.02033996582031, 38.88408470638821},
+		[2]float64{-77.02566146850586, 38.885821800123196},
+		[2]float64{-77.02188491821289, 38.88956308852534},
+		[2]float64{-77.01982498168944, 38.89236892551996},
+		[2]float64{-77.02291488647461, 38.89370499941828},
+		[2]float64{-77.02291488647461, 38.89958342598271},
+		[2]float64{-77.01896667480469, 38.90011780426885},
+		[2]float64{-77.01845169067383, 38.90733151751689},
+		[2]float64{-77.02291488647461, 38.907865837489105},
+		[2]float64{-77.02377319335936, 38.91200668090932},
+		[2]float64{-77.02995300292969, 38.91254096569048},
+		[2]float64{-77.03338623046875, 38.91708222394378},
+		[2]float64{-77.03784942626953, 38.920821865485834},
+		[2]float64{-77.03115463256836, 38.92830055730587},
+		[2]float64{-77.03596115112305, 38.931505469602044},
+	}, nil, nil)
+
+	pt8 := Along(*line, 0, types.UnitMiles)
+
+	assert.Equal(pt8.Geometry.Type, "Point")
+	assert.Equal(pt8.Geometry.Coordinates[0], -77.03596115112305)
+	assert.Equal(pt8.Geometry.Coordinates[1], 38.931505469602044)
+}
