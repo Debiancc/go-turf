@@ -1,14 +1,15 @@
 package point
 
-type Coord [2]float64
-type Properties map[string]interface{}
+import "github.com/Debiancc/go-turf/features"
+
+type Geometry struct {
+	features.Geometry
+	Coordinates features.Position
+}
 
 type Point struct {
-	Coord Coord
-	Lng   float64
-	Lat   float64
-	Properties
-	Options Options
+	features.Feature
+	Geometry Geometry
 }
 
 type Options struct {
@@ -16,17 +17,13 @@ type Options struct {
 	Id   interface{} // int64 or string
 }
 
-func NewPoint(coordinates Coord, properties *Properties, options *Options) Point {
-	p := Point{
-		Lng:   coordinates[0],
-		Lat:   coordinates[1],
-		Coord: coordinates,
-	}
+func NewPoint(coordinates features.Position, properties *features.Properties, options *Options) *Point {
+	p := new(Point)
+	p.Type = "Feature"
+	p.Geometry.Type = "Point"
+	p.Geometry.Coordinates = coordinates
 	if properties != nil {
 		p.Properties = *properties
-	}
-	if options != nil {
-		p.Options = *options
 	}
 	return p
 }
