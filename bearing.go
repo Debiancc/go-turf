@@ -1,12 +1,11 @@
-package measurements
+package turf
 
 import (
-	"github.com/Debiancc/go-turf/features"
 	"github.com/Debiancc/go-turf/helpers"
 	"math"
 )
 
-func Bearing(start features.Feature[features.Point], end features.Feature[features.Point], final bool) float64 {
+func Bearing(start Feature[Point], end Feature[Point], final bool) float64 {
 	if final {
 		return calcFinal(start, end)
 	}
@@ -20,12 +19,12 @@ func Bearing(start features.Feature[features.Point], end features.Feature[featur
 	return helpers.RadiansToDegrees(math.Atan2(a, b))
 }
 
-func calcFinal(start features.Feature[features.Point], end features.Feature[features.Point]) float64 {
+func calcFinal(start Feature[Point], end Feature[Point]) float64 {
 	bear := Bearing(end, start, false)
 	return math.Mod(bear+180, 360)
 }
 
-func RhumbBearing(start features.Feature[features.Point], end features.Feature[features.Point], final bool) float64 {
+func RhumbBearing(start Feature[Point], end Feature[Point], final bool) float64 {
 	var bear360 float64
 	if final {
 		bear360 = calcRhumbBearing(end, start)
@@ -41,7 +40,7 @@ func RhumbBearing(start features.Feature[features.Point], end features.Feature[f
 	return bear180
 }
 
-func calcRhumbBearing(start features.Feature[features.Point], end features.Feature[features.Point]) float64 {
+func calcRhumbBearing(start Feature[Point], end Feature[Point]) float64 {
 
 	phi1 := helpers.DegreesToRadians(start.Geometry.Coordinates[1])
 	phi2 := helpers.DegreesToRadians(end.Geometry.Coordinates[1])

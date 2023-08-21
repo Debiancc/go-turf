@@ -1,13 +1,12 @@
-package measurements
+package turf
 
 import (
-	"github.com/Debiancc/go-turf/features"
 	"github.com/Debiancc/go-turf/helpers"
 	"github.com/Debiancc/go-turf/types"
 	"math"
 )
 
-func Distance(from features.Feature[features.Point], to features.Feature[features.Point], units types.Units) float64 {
+func Distance(from Feature[Point], to Feature[Point], units types.Units) float64 {
 	dLng := helpers.DegreesToRadians(to.Geometry.Coordinates[0] - from.Geometry.Coordinates[0])
 	dLat := helpers.DegreesToRadians(to.Geometry.Coordinates[1] - from.Geometry.Coordinates[1])
 	lat1 := helpers.DegreesToRadians(from.Geometry.Coordinates[1])

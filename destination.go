@@ -1,13 +1,12 @@
-package measurements
+package turf
 
 import (
-	"github.com/Debiancc/go-turf/features"
 	"github.com/Debiancc/go-turf/helpers"
 	"github.com/Debiancc/go-turf/types"
 	"math"
 )
 
-func Destination(origin features.Feature[features.Point], distance float64, bearing float64, units types.Units, properties *features.Properties) *features.Feature[features.Point] {
+func Destination(origin Feature[Point], distance float64, bearing float64, units types.Units, properties *Properties) *Feature[Point] {
 	lng1 := helpers.DegreesToRadians(origin.Geometry.Coordinates[0])
 	lat1 := helpers.DegreesToRadians(origin.Geometry.Coordinates[1])
 	bearingRad := helpers.DegreesToRadians(bearing)
@@ -21,11 +20,11 @@ func Destination(origin features.Feature[features.Point], distance float64, bear
 	lng := helpers.RadiansToDegrees(lng2)
 	lat := helpers.RadiansToDegrees(lat2)
 
-	//return features.NewPoint([2]float64{lng, lat}, properties, nil)
-	return features.NewPoint([2]float64{lng, lat})
+	//return NewPoint([2]float64{lng, lat}, properties, nil)
+	return NewPoint([2]float64{lng, lat})
 }
 
-func RhumbDestination(origin features.Feature[features.Point], distance float64, bearing float64, units types.Units, properties *features.Properties) *features.Feature[features.Point] {
+func RhumbDestination(origin Feature[Point], distance float64, bearing float64, units types.Units, properties *Properties) *Feature[Point] {
 	wasNegativeDostamce := distance < 0
 	distanceInMeters := helpers.ConvertLength(math.Abs(distance), units, types.UnitMeters)
 	if wasNegativeDostamce {
@@ -40,11 +39,11 @@ func RhumbDestination(origin features.Feature[features.Point], distance float64,
 		}
 	}
 
-	//return features.NewPoint(destination.Geometry.Coordinates, properties, nil)
-	return features.NewPoint(destination.Geometry.Coordinates)
+	//return NewPoint(destination.Geometry.Coordinates, properties, nil)
+	return NewPoint(destination.Geometry.Coordinates)
 }
 
-func calcRhumbDestination(origin features.Feature[features.Point], distance float64, bearing float64, radius *float64) *features.Feature[features.Point] {
+func calcRhumbDestination(origin Feature[Point], distance float64, bearing float64, radius *float64) *Feature[Point] {
 	var delta float64
 	if radius == nil {
 		delta = distance / types.FactorEarthRadius
@@ -78,6 +77,6 @@ func calcRhumbDestination(origin features.Feature[features.Point], distance floa
 
 	lng := math.Mod((lambda2*180/math.Pi)+540, 360) - 180
 	lat := phi2 * 180 / math.Pi
-	//return features.NewPoint([2]float64{lng, lat}, nil, nil)
-	return features.NewPoint([2]float64{lng, lat})
+	//return NewPoint([2]float64{lng, lat}, nil, nil)
+	return NewPoint([2]float64{lng, lat})
 }

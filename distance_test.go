@@ -1,7 +1,6 @@
-package measurements
+package turf
 
 import (
-	"github.com/Debiancc/go-turf/features"
 	"github.com/Debiancc/go-turf/types"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -9,8 +8,8 @@ import (
 
 func TestDistance(t *testing.T) {
 	assert := assert.New(t)
-	from := features.NewPoint([2]float64{-75.343, 39.984})
-	to := features.NewPoint([2]float64{-75.534, 39.123})
+	from := NewPoint([2]float64{-75.343, 39.984})
+	to := NewPoint([2]float64{-75.534, 39.123})
 
 	r1 := Distance(*from, *to, types.UnitDegrees)
 	assert.Equal(r1, 0.8724834600465156)

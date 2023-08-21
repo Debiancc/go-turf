@@ -1,7 +1,6 @@
-package measurements
+package turf
 
 import (
-	"github.com/Debiancc/go-turf/features"
 	"github.com/Debiancc/go-turf/types"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -9,7 +8,7 @@ import (
 
 func TestAlong(t *testing.T) {
 	assert := assert.New(t)
-	line := features.NewLineString(features.LineString{
+	line := NewLineString(LineString{
 		[2]float64{-77.0316696166992, 38.878605901789236},
 		[2]float64{-77.02960968017578, 38.88194668656296},
 		[2]float64{-77.02033996582031, 38.88408470638821},
