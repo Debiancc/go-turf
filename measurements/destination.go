@@ -7,9 +7,9 @@ import (
 	"math"
 )
 
-func Destination(origin features.Point, distance float64, bearing float64, units types.Units, properties *features.Properties) *features.Point {
-	lng1 := helpers.DegreesToRadians(origin.GetLng())
-	lat1 := helpers.DegreesToRadians(origin.GetLat())
+func Destination(origin features.Feature[features.Point], distance float64, bearing float64, units types.Units, properties *features.Properties) *features.Feature[features.Point] {
+	lng1 := helpers.DegreesToRadians(origin.Geometry.Coordinates[0])
+	lat1 := helpers.DegreesToRadians(origin.Geometry.Coordinates[1])
 	bearingRad := helpers.DegreesToRadians(bearing)
 	radians := helpers.LengthToRadians(distance, units)
 
@@ -21,28 +21,30 @@ func Destination(origin features.Point, distance float64, bearing float64, units
 	lng := helpers.RadiansToDegrees(lng2)
 	lat := helpers.RadiansToDegrees(lat2)
 
-	return features.NewPoint([2]float64{lng, lat}, properties, nil)
+	//return features.NewPoint([2]float64{lng, lat}, properties, nil)
+	return features.NewPoint([2]float64{lng, lat})
 }
 
-func RhumbDestination(origin features.Point, distance float64, bearing float64, units types.Units, properties *features.Properties) *features.Point {
+func RhumbDestination(origin features.Feature[features.Point], distance float64, bearing float64, units types.Units, properties *features.Properties) *features.Feature[features.Point] {
 	wasNegativeDostamce := distance < 0
 	distanceInMeters := helpers.ConvertLength(math.Abs(distance), units, types.UnitMeters)
 	if wasNegativeDostamce {
 		distanceInMeters = -math.Abs(distanceInMeters)
 	}
 	destination := calcRhumbDestination(origin, distanceInMeters, bearing, nil)
-	if destination.GetLng()-origin.GetLng() > 180 {
+	if destination.Geometry.Coordinates[0]-origin.Geometry.Coordinates[0] > 180 {
 		destination.Geometry.Coordinates[0] += -360
 	} else {
-		if origin.GetLng()-destination.GetLng() > 180 {
+		if origin.Geometry.Coordinates[0]-destination.Geometry.Coordinates[0] > 180 {
 			destination.Geometry.Coordinates[0] += 360
 		}
 	}
 
-	return features.NewPoint(destination.Geometry.Coordinates, properties, nil)
+	//return features.NewPoint(destination.Geometry.Coordinates, properties, nil)
+	return features.NewPoint(destination.Geometry.Coordinates)
 }
 
-func calcRhumbDestination(origin features.Point, distance float64, bearing float64, radius *float64) *features.Point {
+func calcRhumbDestination(origin features.Feature[features.Point], distance float64, bearing float64, radius *float64) *features.Feature[features.Point] {
 	var delta float64
 	if radius == nil {
 		delta = distance / types.FactorEarthRadius
@@ -50,8 +52,8 @@ func calcRhumbDestination(origin features.Point, distance float64, bearing float
 		delta = distance / *radius
 	}
 
-	lambda1 := origin.GetLng() * math.Pi / 180
-	phi1 := helpers.DegreesToRadians(origin.GetLat())
+	lambda1 := origin.Geometry.Coordinates[0] * math.Pi / 180
+	phi1 := helpers.DegreesToRadians(origin.Geometry.Coordinates[1])
 	theta := helpers.DegreesToRadians(bearing)
 
 	deltaPhi := delta * math.Cos(theta)
@@ -76,5 +78,6 @@ func calcRhumbDestination(origin features.Point, distance float64, bearing float
 
 	lng := math.Mod((lambda2*180/math.Pi)+540, 360) - 180
 	lat := phi2 * 180 / math.Pi
-	return features.NewPoint([2]float64{lng, lat}, nil, nil)
+	//return features.NewPoint([2]float64{lng, lat}, nil, nil)
+	return features.NewPoint([2]float64{lng, lat})
 }

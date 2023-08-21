@@ -8,8 +8,8 @@ import (
 
 func TestBearing(t *testing.T) {
 	assert := assert.New(t)
-	form := features.NewPoint([2]float64{-75, 45}, nil, nil)
-	to := features.NewPoint([2]float64{20, 60}, nil, nil)
+	form := features.NewPoint([2]float64{-75, 45})
+	to := features.NewPoint([2]float64{20, 60})
 
 	r1 := Bearing(*form, *to, false)
 	assert.Equal(r1, 37.75495852601733)
@@ -20,8 +20,8 @@ func TestBearing(t *testing.T) {
 
 func TestRhumbBearing(t *testing.T) {
 	assert := assert.New(t)
-	form := features.NewPoint([2]float64{-75, 45}, nil, nil)
-	to := features.NewPoint([2]float64{20, 60}, nil, nil)
+	form := features.NewPoint([2]float64{-75, 45})
+	to := features.NewPoint([2]float64{20, 60})
 
 	r1 := RhumbBearing(*form, *to, false)
 	assert.Equal(r1, 75.28061364784332)

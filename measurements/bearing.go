@@ -6,26 +6,26 @@ import (
 	"math"
 )
 
-func Bearing(start features.Point, end features.Point, final bool) float64 {
+func Bearing(start features.Feature[features.Point], end features.Feature[features.Point], final bool) float64 {
 	if final {
 		return calcFinal(start, end)
 	}
-	lat1 := helpers.DegreesToRadians(start.GetLat())
-	lat2 := helpers.DegreesToRadians(end.GetLat())
-	lng1 := helpers.DegreesToRadians(start.GetLng())
-	lng2 := helpers.DegreesToRadians(end.GetLng())
+	lat1 := helpers.DegreesToRadians(start.Geometry.Coordinates[1])
+	lat2 := helpers.DegreesToRadians(end.Geometry.Coordinates[1])
+	lng1 := helpers.DegreesToRadians(start.Geometry.Coordinates[0])
+	lng2 := helpers.DegreesToRadians(end.Geometry.Coordinates[1])
 	a := math.Sin(lng2-lng1) * math.Cos(lat2)
 	b := math.Cos(lat1)*math.Sin(lat2) - math.Sin(lat1)*math.Cos(lat2)*math.Cos(lng2-lng1)
 
 	return helpers.RadiansToDegrees(math.Atan2(a, b))
 }
 
-func calcFinal(start features.Point, end features.Point) float64 {
+func calcFinal(start features.Feature[features.Point], end features.Feature[features.Point]) float64 {
 	bear := Bearing(end, start, false)
 	return math.Mod(bear+180, 360)
 }
 
-func RhumbBearing(start features.Point, end features.Point, final bool) float64 {
+func RhumbBearing(start features.Feature[features.Point], end features.Feature[features.Point], final bool) float64 {
 	var bear360 float64
 	if final {
 		bear360 = calcRhumbBearing(end, start)
@@ -41,10 +41,11 @@ func RhumbBearing(start features.Point, end features.Point, final bool) float64 
 	return bear180
 }
 
-func calcRhumbBearing(start features.Point, end features.Point) float64 {
-	phi1 := helpers.DegreesToRadians(start.GetLat())
-	phi2 := helpers.DegreesToRadians(end.GetLat())
-	deltaLambda := helpers.DegreesToRadians(end.GetLng() - start.GetLng())
+func calcRhumbBearing(start features.Feature[features.Point], end features.Feature[features.Point]) float64 {
+
+	phi1 := helpers.DegreesToRadians(start.Geometry.Coordinates[1])
+	phi2 := helpers.DegreesToRadians(end.Geometry.Coordinates[1])
+	deltaLambda := helpers.DegreesToRadians(end.Geometry.Coordinates[0] - start.Geometry.Coordinates[0])
 	if deltaLambda > math.Pi {
 		deltaLambda -= 2 * math.Pi
 	}

@@ -9,8 +9,8 @@ import (
 
 func TestDistance(t *testing.T) {
 	assert := assert.New(t)
-	from := features.NewPoint([2]float64{-75.343, 39.984}, nil, nil)
-	to := features.NewPoint([2]float64{-75.534, 39.123}, nil, nil)
+	from := features.NewPoint([2]float64{-75.343, 39.984})
+	to := features.NewPoint([2]float64{-75.534, 39.123})
 
 	r1 := Distance(*from, *to, types.UnitDegrees)
 	assert.Equal(r1, 0.8724834600465156)

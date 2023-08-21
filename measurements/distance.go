@@ -7,11 +7,11 @@ import (
 	"math"
 )
 
-func Distance(from features.Point, to features.Point, units types.Units) float64 {
-	dLng := helpers.DegreesToRadians(to.GetLng() - from.GetLng())
-	dLat := helpers.DegreesToRadians(to.GetLat() - from.GetLat())
-	lat1 := helpers.DegreesToRadians(from.GetLat())
-	lat2 := helpers.DegreesToRadians(to.GetLat())
+func Distance(from features.Feature[features.Point], to features.Feature[features.Point], units types.Units) float64 {
+	dLng := helpers.DegreesToRadians(to.Geometry.Coordinates[0] - from.Geometry.Coordinates[0])
+	dLat := helpers.DegreesToRadians(to.Geometry.Coordinates[1] - from.Geometry.Coordinates[1])
+	lat1 := helpers.DegreesToRadians(from.Geometry.Coordinates[1])
+	lat2 := helpers.DegreesToRadians(to.Geometry.Coordinates[1])
 
 	a := math.Pow(math.Sin(dLat/2), 2) + math.Pow(math.Sin(dLng/2), 2)*math.Cos(lat1)*math.Cos(lat2)
 
