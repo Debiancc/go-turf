@@ -13,7 +13,7 @@ func Bearing(start features.Feature[features.Point], end features.Feature[featur
 	lat1 := helpers.DegreesToRadians(start.Geometry.Coordinates[1])
 	lat2 := helpers.DegreesToRadians(end.Geometry.Coordinates[1])
 	lng1 := helpers.DegreesToRadians(start.Geometry.Coordinates[0])
-	lng2 := helpers.DegreesToRadians(end.Geometry.Coordinates[1])
+	lng2 := helpers.DegreesToRadians(end.Geometry.Coordinates[0])
 	a := math.Sin(lng2-lng1) * math.Cos(lat2)
 	b := math.Cos(lat1)*math.Sin(lat2) - math.Sin(lat1)*math.Cos(lat2)*math.Cos(lng2-lng1)
 

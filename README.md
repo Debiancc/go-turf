@@ -1,5 +1,5 @@
 # go-turf
-[![Build Status](https://travis-ci.com/Debiancc/go-turf.svg?branch=master)](https://travis-ci.com/Debiancc/go-turf)
+[![Go](https://github.com/Debiancc/go-turf/actions/workflows/go.yml/badge.svg)](https://github.com/Debiancc/go-turf/actions/workflows/go.yml)
 ### Still in WIP
 
 turfjs lib implement by Golang.
